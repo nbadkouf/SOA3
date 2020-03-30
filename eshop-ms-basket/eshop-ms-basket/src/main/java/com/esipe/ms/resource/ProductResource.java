@@ -1,14 +1,9 @@
 package com.esipe.ms.resource;
 import com.esipe.ms.domain.Product;
-import com.esipe.ms.security.JWTTokenGenerator;
-import com.esipe.ms.security.JWTTokenValidator;
 import com.esipe.ms.service.ProductService;
-import com.esipe.ms.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.naming.AuthenticationException;
 import java.util.List;
 
 @RestController

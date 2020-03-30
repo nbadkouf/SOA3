@@ -1,7 +1,6 @@
 package com.esipe.ms.repository;
 
 import com.esipe.ms.domain.Basket;
-import com.esipe.ms.domain.User;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
