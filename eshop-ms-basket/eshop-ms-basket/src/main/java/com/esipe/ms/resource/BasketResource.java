@@ -29,12 +29,21 @@ public class BasketResource {
         return tokenValidator.verifyAndTransform(token.getToken());
     }
 
+    //On vérifie que la partie sub du token correspond bien au login du user qui veut consulter son panier
     @GetMapping("{user}")
     public Basket getOne(@PathVariable("user") String user, @RequestHeader("Authorization") String token){
+        String token_res = token.substring(7);
+        if(tokenValidator.verifyAndGetUser(token_res).equals(user)){
+            return basketService.getOne(user);
+        }
+        else {
+            System.out.println("Not authorized");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "USER UNAUTHORIZED");
+        }
 
-        return basketService.getOne(user);
     }
 
+    //Seul l'ADMIN peut consulter la liste de tous les paniers
     @GetMapping
     public List<Basket> getAll(@RequestHeader("Authorization") String token){
         String token_res = token.substring(7);
@@ -45,6 +54,7 @@ public class BasketResource {
         }
     }
 
+    //On vérifie que la partie sub du token correspond bien au login du user qui veut ajouter un panier
     @PostMapping("{user}")
     public void add(@PathVariable("user") String user, @RequestBody Basket basket, @RequestHeader("Authorization") String token){
         String token_res = token.substring(7);
@@ -57,19 +67,32 @@ public class BasketResource {
         }
     }
 
+    //On vérifie que la partie sub du token correspond bien au login du user qui veut update son panier
     @PutMapping("{user}")
     public void update(@PathVariable("user") String user, @RequestBody Basket basket, @RequestHeader("Authorization") String token){
-
+        String token_res = token.substring(7);
+        if(tokenValidator.verifyAndGetUser(token_res).equals(user)){
+            basketService.update(basket);
+        }
+        else {
+            System.out.println("Not authorized");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "USER UNAUTHORIZED");
+        }
         if(!user.equals(basket.getUser())){
             throw new RuntimeException("update basket exception");
         }
-
-        basketService.update(basket);
     }
 
+    //On vérifie que la partie sub du token correspond bien au login du user qui veut supprimer son panier
     @DeleteMapping("{user}")
     public void delete(@PathVariable("user") String user, @RequestHeader("Authorization") String token){
-
-        basketService.delete(user);
+        String token_res = token.substring(7);
+        if(tokenValidator.verifyAndGetUser(token_res).equals(user)){
+            basketService.delete(user);
+        }
+        else {
+            System.out.println("Not authorized");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "USER UNAUTHORIZED");
+        }
     }
 }
