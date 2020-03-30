@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="eshop-ms-membership-1.0.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/eshop-ms-membership/target/eshop-ms-membership-1.0.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
