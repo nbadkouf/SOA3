@@ -43,7 +43,21 @@ public class JWTTokenValidator {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
+	public String verifyAndGetUser(String token){
+		try {
+			SignedJWT signedJWT = SignedJWT.parse(token);
+
+			if(!signedJWT.verify(verifier)){
+				throw new RuntimeException("Token cannot be verified. Invalid Token");
+			}
+
+			return signedJWT.getJWTClaimsSet().getStringClaim("sub");
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 	// public boolean validateTokenIssuer()
 	
 }
