@@ -1,8 +1,11 @@
 package com.esipe.ms.resource;
 import com.esipe.ms.domain.Product;
+import com.esipe.ms.security.JWTTokenValidator;
 import com.esipe.ms.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -10,6 +13,8 @@ import java.util.List;
 @RequestMapping(value = "products", produces = {"application/json"})
 public class ProductResource {
     private ProductService productService;
+    private JWTTokenValidator tokenValidator;
+
     @Autowired
     public ProductResource(ProductService us){
         productService = us;
@@ -29,7 +34,7 @@ public class ProductResource {
     @PostMapping
     public void add(@RequestBody Product product){
 
-        productService.add(product);
+            productService.add(product);
     }
 
     @PutMapping("{gtin}")

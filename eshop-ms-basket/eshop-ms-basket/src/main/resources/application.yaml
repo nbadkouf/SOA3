@@ -6,7 +6,7 @@ server:
     
 app:
   keystore:
-    file: "src/main/resources/secrets/server.p12"
+    file: "server.p12"
     alias: "esipe"
     password: "esipe"
    
